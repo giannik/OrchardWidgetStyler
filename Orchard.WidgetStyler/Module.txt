@@ -1,0 +1,12 @@
+﻿Name: Orchard.WidgetStyler
+AntiForgery: disabled
+Author: Yiannis Kyriazidis		
+Website: http://www.linkedin.com/pub/yiannis-kyriazidis/23/104/883
+Version: 1.0
+Description: Allows widget styling from the front end.
+OrchardVersion: 1.5
+Category: Widget
+Dependencies: Orchard.Widgets, Orchard.jQuery
+Features:
+    Orchard.WidgetStyler:
+        Description: Allows widget styling from the front end.

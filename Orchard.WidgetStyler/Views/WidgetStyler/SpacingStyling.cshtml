@@ -1,0 +1,215 @@
+﻿@using System.Globalization
+@model Orchard.WidgetStyler.Models.SpacingSettings
+@using (Html.BeginForm("SaveSpacingStyling", "WidgetStyler", FormMethod.Post, new { id = "frmwidgetSpacingSettings" }))
+{
+  
+   
+    <input type="hidden" id="widgetidspacing" name="widgetidspacing" value="@ViewBag.widgetid"/>
+ 
+    <div style="overflow:auto">
+        @Html.ValidationSummary()
+        @Html.ValidationMessageFor(model => model.MarginTop)
+
+        <fieldset class="wdgt-styler" style="float: left;">
+            <legend>Margin</legend>
+            @Html.CheckBoxFor(model => model.MarginSameForAll) Same for all
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        Top:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.MarginTop, new { @class = "wdgt-txtinput mrgn" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Right:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.MarginRight, new { @class = "wdgt-txtinput mrgn" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bottom:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.MarginBottom, new { @class = "wdgt-txtinput mrgn" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Left:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.MarginLeft, new { @class = "wdgt-txtinput mrgn" })
+                    </td>
+                </tr>
+              
+            </table>
+        </fieldset>
+        <fieldset class="wdgt-styler" style="float: left;">
+            <legend>Padding</legend>
+            @Html.CheckBoxFor(model => model.PaddingSameForAll) Same for all
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        Top:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.PaddingTop, new { @class = "wdgt-txtinput pdng" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Right:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.PaddingRight, new { @class = "wdgt-txtinput pdng" })
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Bottom:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.PaddingBottom, new { @class = "wdgt-txtinput pdng" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Left:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.PaddingLeft, new { @class = "wdgt-txtinput pdng" })
+                    </td>
+                </tr>
+              
+            </table>
+        </fieldset>
+    </div>
+ 
+
+    
+    <button   type="submit" >
+        Save
+    </button>    
+                            
+   
+
+}
+<div id="ShowResultHere4SpacingStyling">
+</div>
+<script type="text/javascript">
+    //perform form post using jquery (not post back)
+    Jqueryformpost('#frmwidgetSpacingSettings', '#ShowResultHere4SpacingStyling');
+
+
+
+
+    //hookup change events
+    //margins
+    $('#MarginSameForAll').change(function () {
+
+        var ischecked = $(this).prop('checked');
+       
+        if (ischecked === true) {
+            //is true
+            $('#MarginTop').prop('disabled', false);
+            $('#MarginBottom').prop('disabled', true);
+            $('#MarginLeft').prop('disabled', true);
+            $('#MarginRight').prop('disabled', true);
+
+        }
+        else {
+            //enable all
+            $('#MarginTop').prop('disabled', false);
+            $('#MarginBottom').prop('disabled', false);
+            $('#MarginLeft').prop('disabled', false);
+            $('#MarginRight').prop('disabled', false);
+        }
+
+    });
+
+    //paddings
+    $('#PaddingSameForAll').change(function () {
+
+        var ischecked = $(this).prop('checked');
+
+        if (ischecked === true) {
+            //is true
+            $('#PaddingTop').prop('disabled', false);
+            $('#PaddingBottom').prop('disabled', true);
+            $('#PaddingLeft').prop('disabled', true);
+            $('#PaddingRight').prop('disabled', true);
+
+        }
+        else {
+            //enable all
+            $('#PaddingTop').prop('disabled', false);
+            $('#PaddingBottom').prop('disabled', false);
+            $('#PaddingLeft').prop('disabled', false);
+            $('#PaddingRight').prop('disabled', false);
+        }
+
+    });
+
+
+    //hook events for margin text box change
+    $('.mrgn').change(
+    function () {
+        var ischecked = $("#MarginSameForAll").prop('checked');
+        var marginrule;
+        if (ischecked === true) 
+        {
+            //is true
+            marginrule = $(this).val() + 'px';
+        }
+        else {
+            //is false
+            marginrule = buildmarginstyle();
+ 
+        }
+
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("margin", marginrule);
+        
+    });
+    
+ 
+    function buildmarginstyle() {
+        return $('#MarginTop').val() + 'px ' + $('#MarginRight').val() + 'px ' + $('#MarginBottom').val() + 'px ' + $('#MarginLeft').val() + 'px' ;
+    }
+
+
+    //hook events fro padding text box change
+    $('.pdng').change(
+    function () {
+        var ischecked = $("#PaddingSameForAll").prop('checked');
+        var paddingrule;
+        if (ischecked === true) {
+            //is true
+            paddingrule = $(this).val() + 'px';
+        }
+        else {
+            //is false
+            paddingrule = buildpaddingstyle();
+
+        }
+
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("padding", paddingrule);
+
+    });
+
+
+    function buildpaddingstyle() {
+        return $('#PaddingTop').val() + 'px ' + $('#PaddingRight').val() + 'px ' + $('#PaddingBottom').val() + 'px ' + $('#PaddingLeft').val() +'px';
+    }
+
+
+    //trigger events to pupoulate ui
+    $('#MarginSameForAll').change();
+    $('#PaddingSameForAll').change();
+    
+</script>

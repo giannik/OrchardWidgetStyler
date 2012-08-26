@@ -1,0 +1,489 @@
+﻿@using System.Globalization
+@model Orchard.WidgetStyler.Models.BorderSettings
+
+@{
+
+    var borderstyletypeData = new System.Collections.Generic.List<SelectListItem>() {
+        
+        new SelectListItem(){Value = "dashed", Text = "dashed"},
+        new SelectListItem(){Value = "double", Text = "double"},
+        new SelectListItem(){Value = "dotted", Text = "dotted"},
+        new SelectListItem(){Value = "groove", Text = "groove"},
+        new SelectListItem(){Value = "hidden", Text = "hidden"},
+        new SelectListItem(){Value = "inset", Text = "inset"},
+        new SelectListItem(){Value = "outset", Text = "outset"},
+        new SelectListItem(){Value = "ridge", Text = "ridge"},
+        new SelectListItem(){Value = "solid", Text = "solid"}
+        
+        
+        
+    };
+     
+    
+}
+
+@using (Html.BeginForm("SaveBorderStyling", "WidgetStyler", FormMethod.Post, new { id = "frmwidgetBorderSettings" }))
+{
+  
+   
+    <input type="hidden" id="widgetidborders" name="widgetidborders" value="@ViewBag.widgetid"/>
+ 
+    <div style="overflow:auto">
+        <fieldset class="wdgt-styler" style="float: left;">
+            <legend>Width</legend>
+            @Html.CheckBoxFor(model => model.WidthSameForAll) Same for all
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        Top:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.WidthTop, new { @class = "wdgt-txtinput brd-width" })
+                    </td>
+                </tr>
+                  <tr>
+                    <td>
+                        Right:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.WidthRight, new { @class = "wdgt-txtinput brd-width" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bottom:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.WidthBottom, new { @class = "wdgt-txtinput brd-width" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Left:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.WidthLeft, new { @class = "wdgt-txtinput brd-width" })
+                    </td>
+                </tr>
+              
+            </table>
+        </fieldset>
+        <fieldset class="wdgt-styler dropdown" style="float: left;">
+            <legend>Style</legend>
+            @Html.CheckBoxFor(model => model.StyleSameForAll) Same for all
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        Top:
+                    </td>
+                    <td>@Html.DropDownListFor(model => model.StyleTop, borderstyletypeData, new { @class = "wdgt-txtinput brd-style" })
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        Right:
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.StyleRight, borderstyletypeData, new { @class = "wdgt-txtinput brd-style" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bottom:
+                    </td>
+                    <td>@Html.DropDownListFor(model => model.StyleBottom, borderstyletypeData, new { @class = "wdgt-txtinput brd-style" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Left:
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.StyleLeft, borderstyletypeData, new { @class = "wdgt-txtinput brd-style" })
+                    </td>
+                </tr>
+               
+            </table>
+        </fieldset>
+        
+        <fieldset class="wdgt-styler" style="float: left;">
+            <legend>Color</legend>
+            @Html.CheckBoxFor(model => model.ColorSameForAll) Same for all
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        Top:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.ColorTop, new { @class = "wdgt-txtinput brd-color colorpcker-brdtop" })
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        Right:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.ColorRight, new { @class = "wdgt-txtinput brd-color colorpcker-brdright" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bottom:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.ColorBottom, new { @class = "wdgt-txtinput brd-color colorpcker-brdbottom" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Left:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.ColorLeft, new { @class = "wdgt-txtinput brd-color colorpcker-brdleft" })
+                    </td>
+                </tr>
+               
+            </table>
+        </fieldset>
+        
+          <fieldset class="wdgt-styler" style="float: left;">
+            <legend>Radius</legend>
+            @Html.CheckBoxFor(model => model.RadiusSameForAll) Same for all
+            <br />
+            <table>
+                <tr>
+                    <td>
+                        Top:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.RadiusTop, new { @class = "wdgt-txtinput brd-radius" })
+                    </td>
+                </tr>
+                  <tr>
+                    <td>
+                        Right:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.RadiusRight, new { @class = "wdgt-txtinput brd-radius" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Bottom:
+                    </td>
+                    <td>@Html.TextBoxFor(model => model.RadiusBottom, new { @class = "wdgt-txtinput brd-radius" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Left:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.RadiusLeft, new { @class = "wdgt-txtinput brd-radius" })
+                    </td>
+                </tr>
+              
+            </table>
+        </fieldset>
+    </div>
+ 
+    <div style="clear:both "></div>
+    
+    <button type="submit"  >
+        Save
+    </button>    
+                            
+   
+
+}
+<div id="ShowResultHere4BorderStyling">
+</div>
+<script type="text/javascript">
+    //perform form post using jquery (not post back)
+    Jqueryformpost('#frmwidgetBorderSettings', '#ShowResultHere4BorderStyling');
+
+
+
+    //hookup color picker
+    $(".colorpcker-brdtop").spectrum({
+        preferredFormat: "hex",
+        color: "@Model.ColorTop",
+        showInput: true,
+        change: function (color) {
+          
+            $(".colorpcker-brdtop").val(color.toHexString());
+        }
+    });
+
+    $(".colorpcker-brdright").spectrum({
+        preferredFormat: "hex",
+        color: "@Model.ColorRight",
+        showInput: true,
+        change: function (color) {
+
+
+            $(".colorpcker-brdright").val(color.toHexString());
+        },
+        beforeShow: function (color) {
+      
+            if ($('#ColorSameForAll').prop('checked') === true) {
+                return false; // Will never show up
+            }
+
+        }
+    });
+
+    $(".colorpcker-brdbottom").spectrum({
+        preferredFormat: "hex",
+        color: "@Model.ColorBottom",
+        showInput: true,
+        change: function (color) {
+          
+            $(".colorpcker-brdbottom").val(color.toHexString());
+        },
+        beforeShow: function (color) {
+            if ($('#ColorSameForAll').prop('checked') === true) {
+                return false; // Will never show up
+            }
+
+        }
+    });
+
+    $(".colorpcker-brdleft").spectrum({
+        preferredFormat: "hex",
+        color: "@Model.ColorLeft",
+        showInput: true,
+        change: function (color) {
+        
+            $(".colorpcker-brdleft").val(color.toHexString());
+        },
+        beforeShow: function (color) {
+            if ($('#ColorSameForAll').prop('checked') === true) {
+                return false; // Will never show up
+            }
+
+        }
+    });
+
+
+    //hookup change events
+    //border-width
+    $('#WidthSameForAll').change(function () {
+
+        var ischecked = $(this).prop('checked');
+
+        if (ischecked === true) {
+            //is true
+            $('#WidthTop').prop('disabled', false);
+            $('#WidthBottom').prop('disabled', true);
+            $('#WidthLeft').prop('disabled', true);
+            $('#WidthRight').prop('disabled', true);
+
+        }
+        else {
+            //enable all
+            $('#WidthTop').prop('disabled', false);
+            $('#WidthBottom').prop('disabled', false);
+            $('#WidthLeft').prop('disabled', false);
+            $('#WidthRight').prop('disabled', false);
+        }
+
+    });
+
+
+    //hookup change events
+    //border-style
+    $('#StyleSameForAll').change(function () {
+
+        var ischecked = $(this).prop('checked');
+
+        if (ischecked === true) {
+            //is true
+            $('#StyleTop').prop('disabled', false);
+            $('#StyleBottom').prop('disabled', true);
+            $('#StyleLeft').prop('disabled', true);
+            $('#StyleRight').prop('disabled', true);
+
+        }
+        else {
+            //enable all
+            $('#StyleTop').prop('disabled', false);
+            $('#StyleBottom').prop('disabled', false);
+            $('#StyleLeft').prop('disabled', false);
+            $('#StyleRight').prop('disabled', false);
+        }
+
+    });
+
+
+    //hookup change events
+    //border-color
+    
+    
+    $('#ColorSameForAll').change(function () {
+
+        var ischecked = $(this).prop('checked');
+
+        if (ischecked === true) {
+            //is true
+            $('#ColorTop').prop('disabled', false);
+            $('#ColorBottom').prop('disabled', true);
+            $('#ColorLeft').prop('disabled', true);
+            $('#ColorRight').prop('disabled', true);
+            
+             
+            
+
+        }
+        else {
+            //enable all
+            $('#ColorTop').prop('disabled', false);
+            $('#ColorBottom').prop('disabled', false);
+            $('#ColorLeft').prop('disabled', false);
+            $('#ColorRight').prop('disabled', false);
+
+           
+        }
+
+    });
+
+
+    //hookup change events
+    //border-radius
+    $('#RadiusSameForAll').change(function () {
+
+        var ischecked = $(this).prop('checked');
+
+        if (ischecked === true) {
+            //is true
+            $('#RadiusTop').prop('disabled', false);
+            $('#RadiusBottom').prop('disabled', true);
+            $('#RadiusLeft').prop('disabled', true);
+            $('#RadiusRight').prop('disabled', true);
+
+        }
+        else {
+            //enable all
+            $('#RadiusTop').prop('disabled', false);
+            $('#RadiusBottom').prop('disabled', false);
+            $('#RadiusLeft').prop('disabled', false);
+            $('#RadiusRight').prop('disabled', false);
+        }
+
+    });
+    
+    
+
+    //hook events for border-width text box change
+    $('.brd-width').change(
+    function () {
+        var ischecked = $("#WidthSameForAll").prop('checked');
+        var brderwidthrule;
+        if (ischecked === true) {
+            //is true
+            brderwidthrule = $(this).val() + 'px';
+        }
+        else {
+            //is false
+            brderwidthrule = buildborderwidthstyle();
+
+        }
+
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("border-width", brderwidthrule);
+
+    });
+
+
+    function buildborderwidthstyle() {
+        return $('#WidthTop').val() + 'px ' + $('#WidthRight').val() + 'px ' + $('#WidthBottom').val() + 'px ' + $('#WidthLeft').val() + 'px';
+    }
+
+
+    //hook events for border-style text box change
+    $('.brd-style').change(
+    function () {
+        var ischecked = $("#StyleSameForAll").prop('checked');
+        var brderstylerule;
+        if (ischecked === true) {
+            //is true
+            brderstylerule = $(this).val();
+        }
+        else {
+            //is false
+            brderstylerule = buildborderStylestyle();
+
+        }
+
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("border-style", brderstylerule);
+
+    });
+
+
+    function buildborderStylestyle() {
+        return $('#StyleTop').val() + ' ' + $('#StyleRight').val() + ' ' + $('#StyleBottom').val() + ' ' + $('#StyleLeft').val() ;
+    }
+
+
+
+    //hook events for border-color text box change
+    $('.brd-color').change(
+    function () {
+        var ischecked = $("#ColorSameForAll").prop('checked');
+        var brdercolorrule;
+        if (ischecked === true) {
+            //is true
+            brdercolorrule = $(this).val();
+        }
+        else {
+            //is false
+            brdercolorrule = buildborderColorstyle();
+
+        }
+
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("border-color", brdercolorrule);
+
+    });
+
+
+    function buildborderColorstyle() {
+ 
+        return $('#ColorTop').val() + ' ' + $('#ColorRight').val() + ' ' + $('#ColorBottom').val() + ' ' + $('#ColorLeft').val();
+    }
+
+
+    //hook events for border-radius text box change
+    $('.brd-radius').change(
+    function () {
+        var ischecked = $("#RadiusSameForAll").prop('checked');
+        var brderRadiusrule;
+        if (ischecked === true) {
+            //is true
+            brderRadiusrule = $(this).val() +'px';
+        }
+        else {
+            //is false
+            brderRadiusrule = buildborderRadiusstyle();
+
+        }
+
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("border-radius", brderRadiusrule);
+
+    });
+
+
+    function buildborderRadiusstyle() {
+        return $('#RadiusTop').val() + 'px ' + $('#RadiusRight').val() + 'px ' + $('#RadiusBottom').val() + 'px ' + $('#RadiusLeft').val() +'px';
+    }
+
+
+
+
+    //trigger events to pupoulate ui
+    $('#WidthSameForAll').change();
+    $('#StyleSameForAll').change();
+    $('#ColorSameForAll').change();
+    $('#RadiusSameForAll').change();
+    
+</script>

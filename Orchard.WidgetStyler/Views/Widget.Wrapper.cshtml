@@ -1,0 +1,36 @@
+﻿@using System.Globalization
+@using Orchard.ContentManagement;
+@using Orchard.Widgets.Models;
+@{
+    var widgetPart = ((IContent)Model.ContentItem).As<WidgetPart>();
+    var tag = Tag(Model, "article");
+
+
+    tag.MergeAttribute("shape-id", ((IContent) Model.ContentItem).Id.ToString(CultureInfo.InvariantCulture));
+
+    if (Model.CustomCssStyle != null)
+    {
+        tag.MergeAttribute("style", Model.CustomCssStyle);
+    }
+   
+}
+@tag.StartElement
+    @if ( (widgetPart.RenderTitle && HasText(widgetPart.Title)) || Model.Header != null) {
+    <header>
+        @if ((widgetPart.RenderTitle && HasText(widgetPart.Title))) {
+        <h1>@widgetPart.Title</h1>
+        }
+        @Display(Model.Header)
+    </header>
+    }
+    
+     
+
+@Display(Model.Child)
+    @if(Model.Footer != null) {
+    <footer>
+        @Display(Model.Footer)
+       
+    </footer>
+    }
+@tag.EndElement

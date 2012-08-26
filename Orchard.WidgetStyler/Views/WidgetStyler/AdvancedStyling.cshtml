@@ -1,0 +1,37 @@
+﻿@model Orchard.WidgetStyler.Models.AdvancedSettings
+
+@*  
+@using (Html.BeginForm("SaveAdvancedStyling", "WidgetStyler", FormMethod.Post, new { id = "frmwidgetAdvancedSettings"  }))
+{
+   <input type="hidden" id="widgetidclearstyling" name="widgetidclearstyling" value="@ViewBag.widgetid"/>
+   
+ 
+    
+
+}*@
+
+ <input type="hidden" id="widgetidclearstyling" name="widgetidclearstyling" value="@ViewBag.widgetid"/>
+<button type="button" id="btnClearCustomStyling">Clear custom style</button>
+<p>This button will remove any custom styling applied to widget. </p>
+<p>After clear refresh page to see results.</p>
+<div id="ShowResultHere4AdvancedStyling">
+</div>
+<script type="text/javascript">
+  
+ 
+
+    $('#btnClearCustomStyling').click(function () {
+        
+        var widgetid = $('#widgetidclearstyling').val();
+        $.post('@Url.Action("ClearCustomStyling","WidgetStyler")', { widgetidclearstyling: widgetid }, function (data) {
+           
+            $('#ShowResultHere4AdvancedStyling').html(data.s);
+        });
+    });
+
+
+
+
+
+
+</script>

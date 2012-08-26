@@ -1,0 +1,120 @@
+﻿@model Orchard.WidgetStyler.Models.ShadowSettings
+@using (Html.BeginForm("SaveShadowStyling", "WidgetStyler", FormMethod.Post, new { id = "frmwidgetShadowSettings" }))
+{
+  
+   
+    <input type="hidden" id="widgetidshadows" name="widgetidshadows" value="@ViewBag.widgetid"/>
+     @Html.CheckBoxFor(model => model.EnableShadow) @:Enable Shadow
+    <table id="wdgt-shad-style-cntr">
+        <tr>
+            <td>Horiz. Offset</td>
+            <td>Vert. Offset</td>
+            <td>Blur</td>
+            <td>Size</td>
+            <td>Color</td>
+
+        </tr>
+        <tr>
+            <td>@Html.TextBoxFor(model=>model.HorizontalOffset, new {@class="wdgt-shadowtxtinput"})</td>
+            <td>@Html.TextBoxFor(model => model.VerticalOffset, new { @class = "wdgt-shadowtxtinput" })</td>
+            <td>@Html.TextBoxFor(model => model.Blur, new { @class = "wdgt-shadowtxtinput" })</td>
+            <td>@Html.TextBoxFor(model => model.Size, new { @class = "wdgt-shadowtxtinput" })</td>
+            <td>@Html.TextBoxFor(model => model.ShadowColor, new { @class = "colorpcker" })</td>
+
+        </tr>
+        <tr>
+            <td><div id="hoffsetslider"></div></td>
+            <td><div id="v-offset-slider"></div></td>
+            <td><div id="blur-slider"></div></td>
+            <td><div id="size-slider"></div></td>
+            <td></td>
+
+        </tr>
+    </table>
+ 
+    <div style="margin-top: 20px;"> <button type="submit" >
+        Save
+    </button>   </div>
+     
+                            
+   
+
+}
+<div id="ShowResultHere4ShadowStyling">
+</div>
+<script type="text/javascript">
+    //perform form post using jquery (not post back)
+    Jqueryformpost('#frmwidgetShadowSettings', '#ShowResultHere4ShadowStyling');
+
+    //hookup color picker
+    $(".colorpcker").spectrum({
+         preferredFormat: "hex",
+        color: "@Model.ShadowColor",
+        showInput: true,
+        change: function (color) {
+            $(".colorpcker").val(color.toHexString());
+        }
+    });
+
+
+    //init sliders
+    $("#hoffsetslider").slider({ min: -50, max: 50, value: @Model.HorizontalOffset, slide: function (event, ui) {
+        $("#HorizontalOffset").val(ui.value);
+        var wdgtidentifier = $("#widgetidentifier").val();
+        var shadowrule = buildshadowstyle(ui.value , $('#VerticalOffset').val(), $('#Blur').val(), $('#Size').val(), $('#ShadowColor').val());
+
+        $(wdgtidentifier).css("box-shadow", shadowrule);
+
+    }
+    });
+    
+
+    $('#v-offset-slider').slider({ min: -50, max: 50, value: @Model.VerticalOffset, slide: function (event, ui) {
+        $("#VerticalOffset").val(ui.value);
+        var wdgtidentifier = $("#widgetidentifier").val();
+        var shadowrule = buildshadowstyle($('#HorizontalOffset').val(), ui.value, $('#Blur').val(), $('#Size').val(), $('#ShadowColor').val());
+
+        $(wdgtidentifier).css("box-shadow", shadowrule);
+        
+}
+});
+$('#blur-slider').slider({ min: 0, max:70, value:@Model.Blur, slide: function (event, ui) {
+    $("#Blur").val(ui.value);
+    var wdgtidentifier = $("#widgetidentifier").val();
+    var shadowrule = buildshadowstyle($('#HorizontalOffset').val(), $('#VerticalOffset').val(), ui.value, $('#Size').val(), $('#ShadowColor').val());
+
+    $(wdgtidentifier).css("box-shadow", shadowrule);
+}
+});
+$('#size-slider').slider({ min: 0, max: 30, value: @Model.Size, slide: function (event, ui) {
+    $("#Size").val(ui.value);
+    var wdgtidentifier = $("#widgetidentifier").val();
+    var shadowrule = buildshadowstyle($('#HorizontalOffset').val(), $('#VerticalOffset').val(), $('#Blur').val(), ui.value, $('#ShadowColor').val());
+
+    $(wdgtidentifier).css("box-shadow", shadowrule);
+    
+}
+});
+
+
+$("#ShadowColor").change(function () {
+    var wdgtidentifier = $("#widgetidentifier").val();
+    var shadowrule = buildshadowstyle($('#HorizontalOffset').val(), $('#VerticalOffset').val(), $('#Blur').val(), $('#Size').val(), $(this).val());
+
+    $(wdgtidentifier).css("box-shadow", shadowrule);
+      
+
+
+    });
+           
+
+function buildshadowstyle(hshadow,vshadow,blur,spread,color) {
+
+    return hshadow + 'px ' + vshadow + 'px ' + blur + 'px ' + spread + 'px ' + color;
+    
+  
+}
+
+ 
+
+</script>

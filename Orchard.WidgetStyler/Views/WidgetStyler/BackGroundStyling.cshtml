@@ -1,0 +1,56 @@
+﻿@using System.Globalization
+@model Orchard.WidgetStyler.Models.StandardSettings
+ 
+ 
+@using (Html.BeginForm("SaveBackGroundStyling", "WidgetStyler", FormMethod.Post, new { id = "frmwidgetGeneralSettings"  }))
+{
+  
+    <input type="hidden" id="widgetidbackground" name="widgetidbackground" value="@ViewBag.widgetid"/>
+ 
+ 
+     <br/>                          
+    <div>
+        <label for="BackGroundColor" style="display: inline;" >Color</label>
+        @Html.TextBoxFor(model => model.BackGroundColor, new { @class = "bg-colorpcker" })
+    </div> 
+         <br/>  
+          <br/> 
+    
+        <br/>  
+          <br/>   
+    <div >
+     <button type="submit"  > Save </button>    
+    </div>                               
+   
+
+}
+
+
+<div id="ShowResultHere4BackGroundStyling">
+</div>
+<script type="text/javascript">
+    //perform form post using jquery (not post back)
+    Jqueryformpost('#frmwidgetGeneralSettings', '#ShowResultHere4BackGroundStyling');
+
+    //hookup color picker
+    $(".bg-colorpcker").spectrum({
+        preferredFormat: "hex",
+        color: "@Model.BackGroundColor",
+        showInput: true,
+        change: function (color) {
+            $(".bg-colorpcker").val(color.toHexString());
+        }
+    });
+
+
+
+    $("#BackGroundColor").change(function () {
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("background-color", $("#BackGroundColor").val());
+     
+
+
+    });
+           
+
+</script>

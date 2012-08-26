@@ -1,0 +1,34 @@
+﻿@model dynamic
+ 
+ 
+
+
+<div id="jquerydialog" title="Widget Styling: @ViewBag.widgetTitle">
+  
+    <input type="hidden" id="widgetid" value="@ViewBag.widgetid"/>
+   <input type="hidden" id="widgetidentifier" value="@ViewBag.widgetidentifier"/>
+  
+    <div id="jquerytabs">
+        <ul>
+            
+            <li><a href="@Url.Action("BackGroundStyling", "WidgetStyler", new { widgetid = ViewBag.widgetid })">BackGround</a></li>
+            <li><a href="@Url.Action("TextsStyling", "WidgetStyler", new { widgetid = ViewBag.widgetid })">Texts</a></li>
+            <li><a href="@Url.Action("SpacingStyling", "WidgetStyler", new { widgetid = ViewBag.widgetid })">Spacing</a></li>
+            <li><a href="@Url.Action("BordersStyling", "WidgetStyler", new { widgetid = ViewBag.widgetid })">Borders</a></li>
+            <li><a href="@Url.Action("ShadowStyling", "WidgetStyler", new { widgetid = ViewBag.widgetid })">Shadows</a></li>
+            <li><a href="@Url.Action("AdvancedStyling", "WidgetStyler", new { widgetid =ViewBag.widgetid })">Advanced</a></li>
+        </ul>
+        
+   
+    </div>
+<script type="text/javascript">
+    $('#jquerytabs').tabs({
+        height: 400,
+        width: 650
+
+
+    });
+
+</script>
+</div>
+

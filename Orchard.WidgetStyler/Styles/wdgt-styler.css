@@ -1,0 +1,114 @@
+﻿ 
+.wdgt-txtinput {
+
+    width: 60px;
+   
+    padding: 1px;
+    margin: 0px;
+  
+}
+
+fieldset.wdgt-styler {
+    border: solid;
+    border-width: 1px;
+    clear: none;
+    padding: 10px;
+    margin: 20px;
+}
+
+fieldset.dropdown {
+   height: 172px; 
+}
+
+fieldset.dropdown tr {
+    
+    height: 32px;
+     width: 120px;
+}
+
+fieldset.dropdown tr select {
+    
+
+     width: 90px;
+}
+
+#wdgt-shad-style-cntr {
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-radius: 5px;
+     
+    
+}
+
+.wdgt-shadowtxtinput {
+
+    width: 90px;
+   
+    padding: 0px;
+    margin: 10px;
+  
+}
+
+#wdgt-shad-style-cntr tr td {
+    vertical-align: middle;
+    text-align: center;
+    width: 70px;
+    padding-left: 3px;
+    height: 40px;
+    
+}
+
+.wdgt-table-row tr td {
+    vertical-align: middle;
+  
+    text-align: right;
+    width:110px;
+    padding-left: 3px;
+    height: 40px;
+}
+
+.wdgt-table-row select {
+    
+
+     width: 90px;
+}
+
+#wdgt-shad-style-cntr tr:last-child td 
+{
+    padding-left: 10px;
+    
+} 
+
+
+div.wdgt-cmds img {
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    
+}
+ 
+
+div.wdgt-cmds ul
+{
+
+    list-style: none;
+    display: none;
+  
+}
+
+div.wdgt-cmds:hover ul
+{
+    display: block;
+    position: relative;
+    left: 45px;
+
+}
+
+ 
+
+ 
+
+

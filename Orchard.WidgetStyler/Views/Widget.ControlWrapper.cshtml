@@ -1,0 +1,66 @@
+﻿@using System.Diagnostics
+@using System.Globalization
+@using Orchard.ContentManagement;
+@using Orchard.WidgetStyler.Models
+@using Orchard.Widgets;
+@{
+
+    bool hasCsstyler = ((IContent)Model.ContentItem).Has<CustomStyle>();  
+ 
+}
+@if (AuthorizedFor(Permissions.ManageWidgets))
+{
+
+    if (hasCsstyler == true)
+    {
+        //show custom list toolbar
+        
+        
+        Script.Require("jQuery").AtHead();
+        Script.Require("jQueryUI").AtHead();
+        Script.Require("jQueryUI_Dialog").AtHead();
+        Script.Require("jQueryUI_Slider").AtHead();
+        Script.Include("spectrum.js").AtHead();
+        Script.Include("custwdgtstyler.js").AtHead();
+        
+        Style.Require("jQueryUI_Orchard").AtHead();
+        Style.Include("spectrum.css").AtHead();
+        Style.Include("wdgt-styler.css").AtHead();
+        var widgetid = ((ContentItem)Model.ContentItem).Id;
+
+        string widgetidentifier = ".widget[shape-id=" + widgetid + "]";
+ 
+    <div class="widget-control">
+        <div class="manage-actions">
+            <div class="wdgt-cmds"> 
+             <img alt="wdgt-image" src="@Url.Content("~/modules/Orchard.WidgetStyler/Images/Gear.png")">
+                <ul>
+                    <li>@Html.ItemEditLinkWithReturnUrl(T("Edit").Text, (ContentItem)Model.ContentItem)</li>
+                    <li><a href="#" onclick="showjquerypopup(@widgetid,'@widgetidentifier');">@T("Style")</a></li>
+                </ul>
+            </div>
+        </div>
+        @Display(Model.Child)
+    </div>
+        
+        
+    }
+
+    else
+    {
+        //show standard options
+    <div class="widget-control">
+        <div class="manage-actions">@Html.ItemEditLinkWithReturnUrl(T("Edit").Text, (ContentItem)Model.ContentItem)</div>
+        @Display(Model.Child)
+    </div>
+        
+        
+
+    }
+
+
+}
+else
+{
+    @Display(Model.Child)
+}

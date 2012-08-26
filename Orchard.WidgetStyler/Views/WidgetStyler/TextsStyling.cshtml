@@ -1,0 +1,97 @@
+﻿@model Orchard.WidgetStyler.Models.TextSettings
+
+ 
+@{
+
+    var fontsList = new System.Collections.Generic.List<SelectListItem>() {
+        
+        new SelectListItem(){Value = "Arial", Text = "Arial"},
+        new SelectListItem(){Value = "Georgia", Text = "Georgia"},
+         new SelectListItem(){Value = "serif", Text = "serif"},
+          new SelectListItem(){Value = "sans-serif", Text = "sans-serif"},
+          new SelectListItem(){Value = "Times New Roman", Text = "Times New Roman"},
+        new SelectListItem(){Value = "Verdana", Text = "Verdana"}
+        
+    };
+    var fontsalignmentList = new System.Collections.Generic.List<SelectListItem>() {
+        
+        new SelectListItem(){Value = "justify", Text = "justify"},
+        new SelectListItem(){Value = "left", Text = "left"},
+        new SelectListItem(){Value = "right", Text = "right"},
+        new SelectListItem(){Value = "center", Text = "center"} 
+    };
+     
+    
+}
+
+@using (Html.BeginForm("SaveTextsStyling", "WidgetStyler", FormMethod.Post, new { id = "frmwidgetTextSettings"  }))
+{
+  
+    <input type="hidden" id="widgetidtexts" name="widgetidtexts" value="@ViewBag.widgetid"/>
+ 
+    <table class="wdgt-table-row">
+        <tr>
+            <td>FontColor:</td>
+            <td> @Html.TextBoxFor(model => model.FontColor, new { @class = "fontcolorpcker" })</td>
+        </tr>
+        <tr>
+            <td>Font:</td>
+            <td>  @Html.DropDownListFor(model => model.Font, fontsList, new { @class = "wdgt-txtinput" })</td>
+        </tr>
+         <tr>
+            <td>Alignment:</td>
+            <td>  @Html.DropDownListFor(model => model.Alignment, fontsalignmentList, new { @class = "wdgt-txtinput" })</td>
+        </tr>
+
+    </table>
+ 
+        
+    
+    <div style="margin-bottom: 20px;" >
+     <button type="submit"  > Save </button>    
+    </div>                               
+   
+
+}
+
+
+<div id="ShowResultHere4TextsStyling">
+</div>
+<script type="text/javascript">
+    //perform form post using jquery (not post back)
+    Jqueryformpost('#frmwidgetTextSettings', '#ShowResultHere4TextsStyling');
+
+    //hookup color picker
+    $(".fontcolorpcker").spectrum({
+        preferredFormat: "hex",
+        color: "@Model.FontColor",
+        showInput: true,
+        change: function (fontcolor) {
+            $(".fontcolorpcker").val(fontcolor.toHexString());
+        }
+    });
+
+
+
+    $("#FontColor").change(function () {
+       
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("color", $(this).val());
+ 
+    });
+
+
+    $("#Alignment").change(function () {
+      
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("text-align", $(this).val());
+
+    });
+
+    $("#Font").change(function () {
+
+        var wdgtidentifier = $("#widgetidentifier").val();
+        $(wdgtidentifier).css("font-family", $(this).val());
+
+    });
+</script>
